@@ -1,0 +1,30 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 生成x的值，避免cos(x)=0时的奇异点
+x = np.linspace(-2 * np.pi, 2 * np.pi, 1000)
+x = x[np.abs(np.cos(x)) > 1e-3]  # 去除 cos(x) 接近 0 的点，以避免除以零
+
+# 计算 sec(x)，即 1/cos(x)
+y = 1 / np.cos(x)
+
+# 限制 y 值的范围，避免图像中出现过大的值
+y = np.clip(y, -10, 10)
+
+# 绘制图像
+plt.figure(figsize=(8, 6))
+plt.plot(x, y, label=r'$\sec(x)$', color='b')
+
+# 设置x轴和y轴的范围
+plt.ylim(-10, 10)
+plt.axhline(0, color='black',linewidth=1)
+plt.axvline(0, color='black',linewidth=1)
+
+# 标题和标签
+plt.title(r'Graph of $sec(x)$', fontsize=16)
+plt.xlabel(r'$x$', fontsize=12)
+plt.ylabel(r'$sec(x)$', fontsize=12)
+
+# 绘制水平和垂直的虚线，表示间断点
+plt.grid(True)
+plt.show()
